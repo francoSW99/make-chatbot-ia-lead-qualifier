@@ -1,0 +1,816 @@
+{
+    "name": "Tool-guardar_preferencia_contacto",
+    "flow": [
+        {
+            "id": 3,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1378104,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "preferenciacomunicacion"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "contactIdGHL",
+                        "type": "text"
+                    },
+                    {
+                        "name": "preferencia",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "highlevel:updateAContact",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5477180
+            },
+            "mapper": {
+                "address": {},
+                "contact": "{{3.contactIdGHL}}",
+                "customField": {
+                    "9kryKKE6nYTB2ocsalgs": {
+                        "8a329d5d-bde8-4a58-81c7-d5cbe4c84950": "{{3.preferencia}}"
+                    }
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "dnd": {
+                            "mode": "chose"
+                        },
+                        "tags": {
+                            "mode": "chose"
+                        },
+                        "address": {
+                            "nested": {
+                                "country": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "contact": {
+                            "mode": "edit"
+                        },
+                        "timezone": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "customField": {
+                            "nested": {
+                                "U7C0Pj7ydSFYtWac4cfc": {
+                                    "mode": "chose"
+                                },
+                                "k2cwH2MkRno4Xe7VdySN": {
+                                    "mode": "chose",
+                                    "label": "Empty"
+                                }
+                            }
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "highlevel"
+                            },
+                            "label": "Magnia subcuenta"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:highlevel,highlevel3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "mode": "edit",
+                        "name": "contact",
+                        "type": "select",
+                        "label": "Contact ID",
+                        "required": true
+                    },
+                    {
+                        "name": "firstName",
+                        "type": "text",
+                        "label": "First Name"
+                    },
+                    {
+                        "name": "lastName",
+                        "type": "text",
+                        "label": "Last Name"
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "phone",
+                        "type": "text",
+                        "label": "Phone"
+                    },
+                    {
+                        "name": "dateOfBirth",
+                        "time": false,
+                        "type": "date",
+                        "label": "Date of Birth"
+                    },
+                    {
+                        "name": "companyName",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "website",
+                        "type": "url",
+                        "label": "Website"
+                    },
+                    {
+                        "name": "tags",
+                        "type": "select",
+                        "label": "Tags",
+                        "multiple": true
+                    },
+                    {
+                        "name": "address",
+                        "spec": [
+                            {
+                                "name": "address1",
+                                "type": "text",
+                                "label": "Street"
+                            },
+                            {
+                                "name": "city",
+                                "type": "text",
+                                "label": "City"
+                            },
+                            {
+                                "name": "state",
+                                "type": "text",
+                                "label": "State"
+                            },
+                            {
+                                "name": "postalCode",
+                                "type": "text",
+                                "label": "PostalCode"
+                            },
+                            {
+                                "name": "country",
+                                "type": "select",
+                                "label": "Country"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Address"
+                    },
+                    {
+                        "name": "source",
+                        "type": "text",
+                        "label": "Source"
+                    },
+                    {
+                        "name": "timezone",
+                        "type": "select",
+                        "label": "Timezone"
+                    },
+                    {
+                        "name": "dnd",
+                        "type": "boolean",
+                        "label": "Dnd"
+                    },
+                    {
+                        "name": "customField",
+                        "spec": [
+                            {
+                                "name": "3ikoAau4kehVhNaWnuFZ",
+                                "type": "text",
+                                "label": "Follow Up Status"
+                            },
+                            {
+                                "name": "GfvodkP9xlzMEVJMfvS6",
+                                "type": "text",
+                                "label": "Message Input"
+                            },
+                            {
+                                "name": "U7C0Pj7ydSFYtWac4cfc",
+                                "type": "select",
+                                "label": "What are your primary fitness goals? ",
+                                "multiple": true,
+                                "validate": {
+                                    "enum": [
+                                        "Lose Weight",
+                                        "Build Muscle",
+                                        "Improve Cardiovascular Health",
+                                        "Maintenance"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "k2cwH2MkRno4Xe7VdySN",
+                                "type": "select",
+                                "label": "How did you hear about our company?"
+                            },
+                            {
+                                "name": "ojZour3Ifmnr2X22iUzv",
+                                "type": "text",
+                                "label": "Do you have any specific fitness challenges or limitations we should be aware of?"
+                            },
+                            {
+                                "name": "sJpGhHdDP3jOCd98DHGG",
+                                "type": "date",
+                                "label": "Follow Up Date"
+                            },
+                            {
+                                "name": "uozKW6BUFJVUFUlB6nUJ",
+                                "type": "text",
+                                "label": "AI Assistant Response"
+                            },
+                            {
+                                "name": "z6CKm7SGdqRGjBnHe7DM",
+                                "type": "text",
+                                "label": "Thread ID"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Custom Fields"
+                    },
+                    {
+                        "mode": "edit",
+                        "name": "contact",
+                        "type": "select",
+                        "label": "Contact ID",
+                        "required": true
+                    },
+                    {
+                        "name": "firstName",
+                        "type": "text",
+                        "label": "First Name"
+                    },
+                    {
+                        "name": "lastName",
+                        "type": "text",
+                        "label": "Last Name"
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "phone",
+                        "type": "text",
+                        "label": "Phone"
+                    },
+                    {
+                        "name": "dateOfBirth",
+                        "time": false,
+                        "type": "date",
+                        "label": "Date of Birth"
+                    },
+                    {
+                        "name": "companyName",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "website",
+                        "type": "url",
+                        "label": "Website"
+                    },
+                    {
+                        "name": "tags",
+                        "type": "select",
+                        "label": "Tags",
+                        "multiple": true
+                    },
+                    {
+                        "name": "address",
+                        "spec": [
+                            {
+                                "name": "address1",
+                                "type": "text",
+                                "label": "Street"
+                            },
+                            {
+                                "name": "city",
+                                "type": "text",
+                                "label": "City"
+                            },
+                            {
+                                "name": "state",
+                                "type": "text",
+                                "label": "State"
+                            },
+                            {
+                                "name": "postalCode",
+                                "type": "text",
+                                "label": "PostalCode"
+                            },
+                            {
+                                "name": "country",
+                                "type": "select",
+                                "label": "Country"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Address"
+                    },
+                    {
+                        "name": "source",
+                        "type": "text",
+                        "label": "Source"
+                    },
+                    {
+                        "name": "timezone",
+                        "type": "select",
+                        "label": "Timezone"
+                    },
+                    {
+                        "name": "dnd",
+                        "type": "boolean",
+                        "label": "Dnd"
+                    },
+                    {
+                        "name": "customField",
+                        "spec": [
+                            {
+                                "name": "sQYYLd2XwiAFQn8C5Bc0",
+                                "type": "text",
+                                "label": "Your website"
+                            },
+                            {
+                                "name": "9kryKKE6nYTB2ocsalgs",
+                                "spec": [
+                                    {
+                                        "name": "8a329d5d-bde8-4a58-81c7-d5cbe4c84950",
+                                        "type": "text",
+                                        "label": "Medio"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Comunicacion con asesor",
+                                "metadata": {
+                                    "textboxList": true
+                                }
+                            },
+                            {
+                                "name": "Dy8vHtf1KgLj1vHWMX6E",
+                                "type": "text",
+                                "label": "1.¿Cuál es el prespuesto que tienes pensado?"
+                            },
+                            {
+                                "name": "xpn7fGGdOw2UPNrYprfo",
+                                "type": "text",
+                                "label": "2. ¿En que plazo de gustaría realizar la compra?"
+                            },
+                            {
+                                "name": "RZs7zdhBTTGaYvagt2bM",
+                                "type": "text",
+                                "label": "3. ¿Cómo financiarías la compra (contado, crédito, preaprobación)? ¿o todavia no lo tienes claro?"
+                            },
+                            {
+                                "name": "sHRe4Zy5v9uIn01rgA0H",
+                                "type": "text",
+                                "label": "4. ¿Te gustaría coordinar una vistia al terreno en las proximas semanas?"
+                            },
+                            {
+                                "name": "q30GuahPCIr12ugNtodg",
+                                "type": "text",
+                                "label": "Resumen clasificacion"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Custom Fields"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Contact ID"
+                    },
+                    {
+                        "name": "timezone",
+                        "type": "text",
+                        "label": "Timezone"
+                    },
+                    {
+                        "name": "type",
+                        "type": "text",
+                        "label": "Type"
+                    },
+                    {
+                        "name": "locationId",
+                        "type": "text",
+                        "label": "Location ID"
+                    },
+                    {
+                        "name": "dnd",
+                        "type": "boolean",
+                        "label": "Dnd"
+                    },
+                    {
+                        "name": "inboundDndSettings",
+                        "spec": [
+                            {
+                                "name": "all",
+                                "spec": [
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "All"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Inbound Dnd Settings"
+                    },
+                    {
+                        "name": "dndSettings",
+                        "spec": [
+                            {
+                                "name": "Call",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Call"
+                            },
+                            {
+                                "name": "Email",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "SMS",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "SMS"
+                            },
+                            {
+                                "name": "WhatsApp",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "WhatsApp"
+                            },
+                            {
+                                "name": "GMB",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "GMB"
+                            },
+                            {
+                                "name": "FB",
+                                "spec": [
+                                    {
+                                        "name": "code",
+                                        "type": "text",
+                                        "label": "Code"
+                                    },
+                                    {
+                                        "name": "message",
+                                        "type": "text",
+                                        "label": "Message"
+                                    },
+                                    {
+                                        "name": "status",
+                                        "type": "text",
+                                        "label": "Status"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "FB"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Dnd Settings"
+                    },
+                    {
+                        "name": "createdBy",
+                        "spec": [
+                            {
+                                "name": "sourceId",
+                                "type": "text",
+                                "label": "Source ID"
+                            },
+                            {
+                                "name": "channel",
+                                "type": "text",
+                                "label": "Channel"
+                            },
+                            {
+                                "name": "source",
+                                "type": "text",
+                                "label": "Source"
+                            },
+                            {
+                                "name": "sourceName",
+                                "type": "text",
+                                "label": "Source Name"
+                            },
+                            {
+                                "name": "timestamp",
+                                "type": "date",
+                                "label": "Timestamp"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Created By"
+                    },
+                    {
+                        "name": "tags",
+                        "type": "array",
+                        "label": "Tags"
+                    },
+                    {
+                        "name": "dateAdded",
+                        "type": "date",
+                        "label": "Date Added"
+                    },
+                    {
+                        "name": "additionalEmails",
+                        "type": "array",
+                        "label": "Additional Emails"
+                    },
+                    {
+                        "name": "additionalPhones",
+                        "type": "array",
+                        "label": "Additional Phones"
+                    },
+                    {
+                        "name": "country",
+                        "type": "text",
+                        "label": "Country"
+                    },
+                    {
+                        "name": "lastName",
+                        "type": "text",
+                        "label": "Last Name"
+                    },
+                    {
+                        "name": "lastNameLowerCase",
+                        "type": "text",
+                        "label": "Last Name Lower Case"
+                    },
+                    {
+                        "name": "emailLowerCase",
+                        "type": "text",
+                        "label": "Email Lower Case"
+                    },
+                    {
+                        "name": "email",
+                        "type": "text",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "postalCode",
+                        "type": "text",
+                        "label": "Postal Code"
+                    },
+                    {
+                        "name": "dateUpdated",
+                        "type": "date",
+                        "label": "Date Updated"
+                    },
+                    {
+                        "name": "fullNameLowerCase",
+                        "type": "text",
+                        "label": "Full Name Lower Case"
+                    },
+                    {
+                        "name": "firstName",
+                        "type": "text",
+                        "label": "First Name"
+                    },
+                    {
+                        "name": "firstNameLowerCase",
+                        "type": "text",
+                        "label": "First Name Lower Case"
+                    },
+                    {
+                        "name": "source",
+                        "type": "text",
+                        "label": "Source"
+                    },
+                    {
+                        "name": "companyName",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "website",
+                        "type": "text",
+                        "label": "Website"
+                    },
+                    {
+                        "name": "phone",
+                        "type": "text",
+                        "label": "Phone"
+                    },
+                    {
+                        "name": "customField",
+                        "spec": [
+                            {
+                                "name": "sQYYLd2XwiAFQn8C5Bc0",
+                                "type": "text",
+                                "label": "Your website"
+                            },
+                            {
+                                "name": "9kryKKE6nYTB2ocsalgs",
+                                "spec": [
+                                    {
+                                        "name": "8a329d5d-bde8-4a58-81c7-d5cbe4c84950",
+                                        "type": "text",
+                                        "label": "Medio"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Comunicacion con asesor",
+                                "metadata": {
+                                    "textboxList": true
+                                }
+                            },
+                            {
+                                "name": "Dy8vHtf1KgLj1vHWMX6E",
+                                "type": "text",
+                                "label": "1.¿Cuál es el prespuesto que tienes pensado?"
+                            },
+                            {
+                                "name": "xpn7fGGdOw2UPNrYprfo",
+                                "type": "text",
+                                "label": "2. ¿En que plazo de gustaría realizar la compra?"
+                            },
+                            {
+                                "name": "RZs7zdhBTTGaYvagt2bM",
+                                "type": "text",
+                                "label": "3. ¿Cómo financiarías la compra (contado, crédito, preaprobación)? ¿o todavia no lo tienes claro?"
+                            },
+                            {
+                                "name": "sHRe4Zy5v9uIn01rgA0H",
+                                "type": "text",
+                                "label": "4. ¿Te gustaría coordinar una vistia al terreno en las proximas semanas?"
+                            },
+                            {
+                                "name": "q30GuahPCIr12ugNtodg",
+                                "type": "text",
+                                "label": "Resumen clasificacion"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Custom Fields"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}

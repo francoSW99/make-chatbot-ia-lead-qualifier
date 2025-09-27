@@ -1,0 +1,186 @@
+{
+    "name": "1)Registrar nuevo lead",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1350056,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 247,
+                    "y": -5
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "HGL-newlead-for-chatbot"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "datastore:AddRecord",
+            "version": 1,
+            "parameters": {
+                "datastore": 49889
+            },
+            "mapper": {
+                "key": "{{1.contact_id}}",
+                "data": {
+                    "a1": "",
+                    "a2": "",
+                    "a3": "",
+                    "a4": "",
+                    "a5": "",
+                    "date": "{{1.date_created}}",
+                    "email": "{{1.email}}",
+                    "numero": "{{1.phone}}",
+                    "fullName": "{{1.customData.fullName}}",
+                    "telegramChatId": ""
+                },
+                "overwrite": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 722,
+                    "y": -15,
+                    "name": "registrar al lead"
+                },
+                "restore": {
+                    "expect": {
+                        "overwrite": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "datastore": {
+                            "label": "nuevolead-chatbot1"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "datastore",
+                        "type": "datastore",
+                        "label": "Data store",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "key",
+                        "type": "text",
+                        "label": "Key"
+                    },
+                    {
+                        "name": "overwrite",
+                        "type": "boolean",
+                        "label": "Overwrite an existing record",
+                        "required": true
+                    },
+                    {
+                        "name": "data",
+                        "spec": [
+                            {
+                                "name": "fullName",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "email",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "numero",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "date",
+                                "type": "date",
+                                "label": null
+                            },
+                            {
+                                "name": "telegramChatId",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "a1",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "a2",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "a3",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "a4",
+                                "type": "text",
+                                "label": null
+                            },
+                            {
+                                "name": "a5",
+                                "type": "text",
+                                "label": null
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}

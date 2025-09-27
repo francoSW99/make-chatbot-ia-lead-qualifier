@@ -1,0 +1,1984 @@
+{
+    "name": "2)CHATBOT-Encuesta y FAQ",
+    "flow": [
+        {
+            "id": 24,
+            "module": "telegram:WatchUpdates",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 1360577
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -314,
+                    "y": -231
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "label": "chat conversacional",
+                            "data": {
+                                "editable": "false"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:telegramapi",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "module": "datastore:SearchRecord",
+            "version": 1,
+            "parameters": {
+                "limit": 1,
+                "datastore": 49889,
+                "continueWhenNoRes": true
+            },
+            "mapper": {
+                "sort": [],
+                "filter": [
+                    [
+                        {
+                            "a": "telegramChatId",
+                            "b": "{{2.message.chat.id}}",
+                            "o": "text:equal"
+                        }
+                    ]
+                ],
+                "mappAbleLimit": ""
+            },
+            "metadata": {
+                "designer": {
+                    "x": -15,
+                    "y": -231,
+                    "messages": [
+                        {
+                            "category": "reference",
+                            "severity": "error",
+                            "message": "Module references non-existing module '2'."
+                        }
+                    ]
+                },
+                "restore": {
+                    "parameters": {
+                        "datastore": {
+                            "label": "nuevolead-chatbot1"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "datastore",
+                        "type": "datastore",
+                        "label": "Data store",
+                        "required": true
+                    },
+                    {
+                        "name": "continueWhenNoRes",
+                        "type": "boolean",
+                        "label": "Continue the execution of the route even if the module returns no results"
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "filter",
+                        "type": "filter",
+                        "label": "Filter",
+                        "options": "rpc://datastore/1.12.1/RpcGetUDTKeys",
+                        "required": true
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "select",
+                                "label": "Key",
+                                "dynamic": true,
+                                "options": [],
+                                "required": true
+                            },
+                            {
+                                "name": "order",
+                                "type": "select",
+                                "label": "Order",
+                                "options": [
+                                    {
+                                        "label": "Ascending",
+                                        "value": 1
+                                    },
+                                    {
+                                        "label": "Descending",
+                                        "value": -1
+                                    }
+                                ],
+                                "required": true
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "mappAbleLimit",
+                        "type": "uinteger",
+                        "label": "Mappable Limit"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "key",
+                        "type": "text",
+                        "label": "Key"
+                    },
+                    {
+                        "name": "data",
+                        "spec": [
+                            {
+                                "help": "Nombre completo del lead",
+                                "name": "fullName",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "correo del lead",
+                                "name": "email",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "celular del lead",
+                                "name": "numero",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "fecha de creacion del lead",
+                                "name": "date",
+                                "type": "date",
+                                "label": null,
+                                "required": false
+                            },
+                            {
+                                "help": "ChatId de telegram",
+                                "name": "telegramChatId",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "respuesta a la preg1",
+                                "name": "a1",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "resp a la preg2",
+                                "name": "a2",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "a3",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "a4",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "a5",
+                                "type": "text",
+                                "label": null,
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 12,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "parameters": {
+                "else": 0
+            },
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 304,
+                    "y": -239,
+                    "name": "ya es conocido en telegram?"
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 5,
+                            "module": "util:FunctionSleep",
+                            "version": 1,
+                            "parameters": {},
+                            "filter": {
+                                "name": "usuario no conocido",
+                                "conditions": []
+                            },
+                            "mapper": {
+                                "duration": "5"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -259,
+                                    "y": 361
+                                },
+                                "restore": {},
+                                "expect": [
+                                    {
+                                        "name": "duration",
+                                        "type": "uinteger",
+                                        "label": "Delay",
+                                        "required": true,
+                                        "validate": {
+                                            "max": 300,
+                                            "min": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "module": "ai-agent:RunAnAIAgent",
+                            "version": 0,
+                            "parameters": {},
+                            "mapper": {
+                                "agent": "23774415-beef-44ae-828e-6234233646d9",
+                                "timeout": "",
+                                "messages": [
+                                    "#CONTEXTO DEL SISTEMA:\nEstado: Usuario Desconicido\ntelegram Chat ID: {{2.message.chat.id}}\n#MENSAJE DEL USUARIO:\n{{2.message.text}}"
+                                ],
+                                "threadID": "{{2.message.chat.id}}",
+                                "outputType": "",
+                                "additionalSystemPrompt": "# IDENTIDAD\nEres MagniaBot, el asistente conversacional experto de Parcelas Elqui. Tu misión es identificar a los leads, responder sus dudas y guiarlos a través de una encuesta de calificación.\n\n# HERRAMIENTAS DISPONIBLES\n- Tool-Vincular usuario:\n  - Descripción: \"Úsala EXCLUSIVAMENTE cuando un usuario DESCONOCIDO te proporcione un mensaje que parezca ser un correo electrónico. Esta herramienta buscará el correo en la base de datos y vinculará su chat de Telegram.\"\n  - Parámetros requeridos: \"email\", \"telegramChatId\".\n\n- Tool-Calificar Respuesta:\n  - Descripción: \"Úsala SOLAMENTE cuando hayas obtenido las 5 respuestas de la encuesta para un usuario CONOCIDO. Esta herramienta toma las 5 respuestas, las califica usando inteligencia artificial y guarda el resultado en el CRM (GoHighLevel).\"\n  - - Parámetros requeridos:\n  - \"contactIdGHL\": El ID único del contacto en GHL que te entregó el sistema.\n  - \"a1\": La respuesta del usuario a la pregunta sobre el PRESUPUESTO.\n  - \"a2\": La respuesta del usuario a la pregunta sobre el PLAZO de compra.\n  - \"a3\": La respuesta del usuario a la pregunta sobre el FINANCIAMIENTO.\n  - \"a4\": La respuesta del usuario a la pregunta sobre la ZONA.\n  - \"a5\": La respuesta del usuario a la pregunta sobre la DISPONIBILIDAD DE VISITA.\n\n# MISIÓN PRINCIPAL\n- Tu primera misión es siempre saber con quién hablas. El sistema te informará si el usuario es \"CONOCIDO\" o \"DESCONOCIDO\".\n\n- **Si el usuario es \"DESCONOCIDO\"**:\n  1. Si es la primera interacción, tu ÚNICA tarea es presentarte y pedir el correo. Ejemplo: \"¡Hola! 👋 Soy MagniaBot de Parcelas Elqui, tu asistente virtual. Para poder darte la información más precisa sobre tu cotización, ¿me podrías indicar el correo electrónico que usaste al registrarte, por favor?\"\n  2. Si el mensaje que te envía el usuario parece ser un correo electrónico, tu ÚNICA acción debe ser invocar la herramienta `Tool-Vincular usuario`. No necesitas responderle nada al usuario en este paso.\n\n- **Si el usuario es \"CONOCIDO\"**:\n  1. Salúdalo por su nombre (el sistema te lo proporcionará) y continúa la conversación con normalidad. Tu objetivo principal es realizar o completar la encuesta de 5 preguntas.\n  2. **Una vez que tengas las 5 respuestas, tu acción final DEBE ser usar la herramienta `Tool-Calificar Respuesta`**. Para ello, debes extraer de tu memoria de la conversación cada una de las 5 respuestas y el contactIdGHL del usuario que te entregó el sistema.\n  3. Después de llamar a la herramienta, genera un mensaje de cierre amigable. Ejemplo: \"¡Perfecto, he guardado tus respuestas! Un asesor se pondrá en contacto contigo muy pronto. ¡Que tengas un buen día! 👋\"\n\n# REGLA CRÍTICA - MANEJO DE MENSAJES MÚLTIPLES:\n- NUNCA respondas a mensajes que parezcan incompletos o fragmentados.\n- Si el mensaje contiene solo 1-2 palabras, ESPERA por contexto adicional.\n- Solo responde cuando tengas una oración o idea completa.\n- Considera los mensajes recientes como parte de una sola respuesta.\n\n# ESTILO CONVERSACIONAL Y REGLAS DE ENCUESTA\n... (Aquí puedes pegar el resto de tus instrucciones originales sobre el tono, las 5 preguntas, cómo manejar las FAQs, etc.)"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 110,
+                                    "y": 363,
+                                    "messages": [
+                                        {
+                                            "category": "reference",
+                                            "severity": "error",
+                                            "message": "Module references non-existing module '2'."
+                                        }
+                                    ]
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "agent": {
+                                            "label": "Magiabot Parcelas Elqui"
+                                        },
+                                        "messages": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "outputType": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "name": "agent",
+                                        "type": "aiagent",
+                                        "label": "Agent",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "threadID",
+                                        "type": "text",
+                                        "label": "Thread ID"
+                                    },
+                                    {
+                                        "name": "additionalSystemPrompt",
+                                        "type": "text",
+                                        "label": "Additional system instructions"
+                                    },
+                                    {
+                                        "name": "messages",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Message"
+                                        },
+                                        "type": "array",
+                                        "label": "Messages"
+                                    },
+                                    {
+                                        "name": "timeout",
+                                        "type": "number",
+                                        "label": "Timeout",
+                                        "validate": {
+                                            "max": 600,
+                                            "min": 120
+                                        }
+                                    },
+                                    {
+                                        "name": "outputType",
+                                        "type": "select",
+                                        "label": "Output schema",
+                                        "validate": {
+                                            "enum": [
+                                                "text",
+                                                "make-schema"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "advanced": true
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "module": "builtin:BasicRouter",
+                            "version": 1,
+                            "parameters": {
+                                "else": 1
+                            },
+                            "mapper": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": 521,
+                                    "y": 380
+                                }
+                            },
+                            "routes": [
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 4,
+                                            "module": "telegram:SendReplyMessage",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 5424742
+                                            },
+                                            "filter": {
+                                                "name": "respuesta sin herramienta",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{3.executionSteps[].toolCalls}}",
+                                                            "o": "notexist"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "text": "{{3.response}}",
+                                                "chatId": "{{2.message.chat.id}}",
+                                                "parseMode": "",
+                                                "replyMarkup": "",
+                                                "messageThreadId": "",
+                                                "replyToMessageId": "",
+                                                "replyMarkupAssembleType": "reply_markup_enter"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 832,
+                                                    "y": 126,
+                                                    "messages": [
+                                                        {
+                                                            "category": "reference",
+                                                            "severity": "error",
+                                                            "message": "Module references non-existing module '2'."
+                                                        }
+                                                    ]
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "parseMode": {
+                                                            "label": "Empty"
+                                                        },
+                                                        "disableNotification": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "replyMarkupAssembleType": {
+                                                            "label": "Enter the Reply Markup"
+                                                        }
+                                                    },
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "telegram"
+                                                            },
+                                                            "label": "Magniabot"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:telegram",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "chatId",
+                                                        "type": "text",
+                                                        "label": "Chat ID",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "messageThreadId",
+                                                        "type": "number",
+                                                        "label": "Message Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "parseMode",
+                                                        "type": "select",
+                                                        "label": "Parse Mode",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "Markdown",
+                                                                "HTML"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "disableNotification",
+                                                        "type": "boolean",
+                                                        "label": "Disable Notifications"
+                                                    },
+                                                    {
+                                                        "name": "disableWebPagePreview",
+                                                        "type": "boolean",
+                                                        "label": "Disable Link Previews"
+                                                    },
+                                                    {
+                                                        "name": "replyToMessageId",
+                                                        "type": "number",
+                                                        "label": "Original Message ID"
+                                                    },
+                                                    {
+                                                        "name": "replyMarkupAssembleType",
+                                                        "type": "select",
+                                                        "label": "Enter/Assemble the Reply Markup Field",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "reply_markup_enter",
+                                                                "reply_markup_assemble"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "replyMarkup",
+                                                        "type": "text",
+                                                        "label": "Reply Markup"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 7,
+                                            "module": "http:ActionSendData",
+                                            "version": 3,
+                                            "parameters": {
+                                                "handleErrors": true,
+                                                "useNewZLibDeCompress": true
+                                            },
+                                            "mapper": {
+                                                "ca": "",
+                                                "qs": [],
+                                                "url": "https://hook.us2.make.com/bv51wp9d33ibbu9m6qsnjra4oljr7r1z",
+                                                "data": "{{3.executionSteps[].toolCalls[].arguments}}",
+                                                "gzip": true,
+                                                "method": "post",
+                                                "headers": [
+                                                    {
+                                                        "name": "Content-Type",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "timeout": "",
+                                                "useMtls": false,
+                                                "authPass": "",
+                                                "authUser": "",
+                                                "bodyType": "raw",
+                                                "contentType": "application/json",
+                                                "serializeUrl": false,
+                                                "shareCookies": false,
+                                                "parseResponse": true,
+                                                "followRedirect": true,
+                                                "useQuerystring": false,
+                                                "followAllRedirects": false,
+                                                "rejectUnauthorized": true
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 705,
+                                                    "y": 693
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "qs": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "method": {
+                                                            "mode": "chose",
+                                                            "label": "POST"
+                                                        },
+                                                        "headers": {
+                                                            "mode": "chose",
+                                                            "items": [
+                                                                null
+                                                            ]
+                                                        },
+                                                        "bodyType": {
+                                                            "label": "Raw"
+                                                        },
+                                                        "contentType": {
+                                                            "label": "JSON (application/json)"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "handleErrors",
+                                                        "type": "boolean",
+                                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useNewZLibDeCompress",
+                                                        "type": "hidden"
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "url",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "serializeUrl",
+                                                        "type": "boolean",
+                                                        "label": "Serialize URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "method",
+                                                        "type": "select",
+                                                        "label": "Method",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "get",
+                                                                "head",
+                                                                "post",
+                                                                "put",
+                                                                "patch",
+                                                                "delete",
+                                                                "options"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "headers",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Headers"
+                                                    },
+                                                    {
+                                                        "name": "qs",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Query String"
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "raw",
+                                                                "x_www_form_urlencoded",
+                                                                "multipart_form_data"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "parseResponse",
+                                                        "type": "boolean",
+                                                        "label": "Parse response",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "authUser",
+                                                        "type": "text",
+                                                        "label": "User name"
+                                                    },
+                                                    {
+                                                        "name": "authPass",
+                                                        "type": "password",
+                                                        "label": "Password"
+                                                    },
+                                                    {
+                                                        "name": "timeout",
+                                                        "type": "uinteger",
+                                                        "label": "Timeout",
+                                                        "validate": {
+                                                            "max": 300,
+                                                            "min": 1
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "shareCookies",
+                                                        "type": "boolean",
+                                                        "label": "Share cookies with other HTTP modules",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "ca",
+                                                        "type": "cert",
+                                                        "label": "Self-signed certificate"
+                                                    },
+                                                    {
+                                                        "name": "rejectUnauthorized",
+                                                        "type": "boolean",
+                                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "followRedirect",
+                                                        "type": "boolean",
+                                                        "label": "Follow redirect",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useQuerystring",
+                                                        "type": "boolean",
+                                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "gzip",
+                                                        "type": "boolean",
+                                                        "label": "Request compressed content",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useMtls",
+                                                        "type": "boolean",
+                                                        "label": "Use Mutual TLS",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "contentType",
+                                                        "type": "select",
+                                                        "label": "Content type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "text/plain",
+                                                                "application/json",
+                                                                "application/xml",
+                                                                "text/xml",
+                                                                "text/html",
+                                                                "custom"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "data",
+                                                        "type": "buffer",
+                                                        "label": "Request content"
+                                                    },
+                                                    {
+                                                        "name": "followAllRedirects",
+                                                        "type": "boolean",
+                                                        "label": "Follow all redirect",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 8,
+                                            "module": "telegram:SendReplyMessage",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 5424742
+                                            },
+                                            "mapper": {
+                                                "text": "{{3.response}}",
+                                                "chatId": "{{2.message.chat.id}}",
+                                                "parseMode": "",
+                                                "replyMarkup": "",
+                                                "messageThreadId": "",
+                                                "replyToMessageId": "",
+                                                "replyMarkupAssembleType": "reply_markup_enter"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1138,
+                                                    "y": 684,
+                                                    "messages": [
+                                                        {
+                                                            "category": "reference",
+                                                            "severity": "error",
+                                                            "message": "Module references non-existing module '2'."
+                                                        }
+                                                    ]
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "parseMode": {
+                                                            "label": "Empty"
+                                                        },
+                                                        "disableNotification": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "replyMarkupAssembleType": {
+                                                            "label": "Enter the Reply Markup"
+                                                        }
+                                                    },
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "telegram"
+                                                            },
+                                                            "label": "Magniabot"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:telegram",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "chatId",
+                                                        "type": "text",
+                                                        "label": "Chat ID",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "messageThreadId",
+                                                        "type": "number",
+                                                        "label": "Message Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "parseMode",
+                                                        "type": "select",
+                                                        "label": "Parse Mode",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "Markdown",
+                                                                "HTML"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "disableNotification",
+                                                        "type": "boolean",
+                                                        "label": "Disable Notifications"
+                                                    },
+                                                    {
+                                                        "name": "disableWebPagePreview",
+                                                        "type": "boolean",
+                                                        "label": "Disable Link Previews"
+                                                    },
+                                                    {
+                                                        "name": "replyToMessageId",
+                                                        "type": "number",
+                                                        "label": "Original Message ID"
+                                                    },
+                                                    {
+                                                        "name": "replyMarkupAssembleType",
+                                                        "type": "select",
+                                                        "label": "Enter/Assemble the Reply Markup Field",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "reply_markup_enter",
+                                                                "reply_markup_assemble"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "replyMarkup",
+                                                        "type": "text",
+                                                        "label": "Reply Markup"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 19,
+                            "module": "util:FunctionSleep",
+                            "version": 1,
+                            "parameters": {},
+                            "filter": {
+                                "name": "usuario conocido",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{11.`__IMTLENGTH__`}}",
+                                            "b": "0",
+                                            "o": "number:greater"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "duration": "5"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 712,
+                                    "y": -248
+                                },
+                                "restore": {},
+                                "expect": [
+                                    {
+                                        "name": "duration",
+                                        "type": "uinteger",
+                                        "label": "Delay",
+                                        "required": true,
+                                        "validate": {
+                                            "max": 300,
+                                            "min": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "ai-agent:RunAnAIAgent",
+                            "version": 0,
+                            "parameters": {},
+                            "mapper": {
+                                "agent": "23774415-beef-44ae-828e-6234233646d9",
+                                "timeout": "",
+                                "messages": [
+                                    "#CONTEXTO DEL SISTEMA:\nEstado: El usuario es conocido.\nContact Id:{{11.key}}\nFull Name:{{11.data.fullName}}\nEmail: {{11.data.email}}\nPhone:{{11.data.numero}}\n#MENSAJE DEL USUARIO:\nMensaje del usuario:{{2.message.text}}"
+                                ],
+                                "threadID": "{{2.message.chat.id}}",
+                                "outputType": "",
+                                "additionalSystemPrompt": "# IDENTIDAD\nEres MagniaBot, el asistente conversacional experto de Parcelas Elqui. Tu misión es identificar a los leads, responder sus dudas y guiarlos a través de una encuesta de calificación.\n\n# HERRAMIENTAS DISPONIBLES\n- Tool-Vincular usuario:\n  - Descripción: \"Úsala EXCLUSIVAMENTE cuando un usuario DESCONOCIDO te proporcione un mensaje que parezca ser un correo electrónico. Esta herramienta buscará el correo en la base de datos y vinculará su chat de Telegram.\"\n  - Parámetros requeridos: \"email\", \"telegramChatId\".\n\n- Tool-Calificar Respuesta:\n  - Descripción: \"Úsala SOLAMENTE cuando hayas obtenido las 5 respuestas de la encuesta para un usuario CONOCIDO. Esta herramienta toma las 5 respuestas, las califica usando inteligencia artificial y guarda el resultado en el CRM (GoHighLevel).\"\n  -- Parámetros requeridos:\n  - \"contactIdGHL\": El ID único del contacto en GHL que te entregó el sistema.\n  - \"a1\": La respuesta del usuario a la pregunta sobre el PRESUPUESTO.\n  - \"a2\": La respuesta del usuario a la pregunta sobre el PLAZO de compra.\n  - \"a3\": La respuesta del usuario a la pregunta sobre el FINANCIAMIENTO.\n  - \"a4\": La respuesta del usuario a la pregunta sobre la ZONA.\n  - \"a5\": La respuesta del usuario a la pregunta sobre la DISPONIBILIDAD DE VISITA.\n\n- guardar_preferencia_contacto:\n  - Descripción: \"Úsala DESPUÉS de haber calificado a un lead, cuando el usuario responda a la pregunta sobre su método de contacto preferido con el corredor o el asesor.\"\n  - Parámetros requeridos:\n    - \"contactIdGHL\": El ID único del contacto en GHL.\n    - \"preferencia\": La preferencia del usuario estandarizada a una de estas cuatro claves, las cuales tienesn que ser identificadas por ti y definirlas de la siguiente forma segun la preferencia escogida por el lead:\n 'wsp' si el lead prefiere whatsapp,\n 'call' si el lead prefiere llamada telefonica, 'correo' si prefiere mediante gmail o correo electronico,\n 'meet' si el lead prefiere agendar una reunion onlinne .\n\n# MISIÓN PRINCIPAL\n- Tu primera misión es siempre saber con quién hablas. El sistema te informará si el usuario es \"CONOCIDO\" o \"DESCONOCIDO\".\n\n- **Si el usuario es \"DESCONOCIDO\"**:\n  1. Si es la primera interacción, tu ÚNICA tarea es presentarte y pedir el correo. Ejemplo: \"¡Hola! 👋 Soy MagniaBot de Parcelas Elqui, tu asistente virtual. Para poder darte la información más precisa sobre tu cotización, ¿me podrías indicar el correo electrónico que usaste al registrarte, por favor?\"\n  2. Si el mensaje que te envía el usuario parece ser un correo electrónico, tu ÚNICA acción debe ser invocar la herramienta `Tool-Vincular usuario`. No necesitas responderle nada al usuario en este paso.\n\n- **Si el usuario es \"CONOCIDO\"**:\n  1. Salúdalo por su nombre (el sistema te lo proporcionará) y continúa la conversación con normalidad. Tu objetivo principal es realizar o completar la encuesta de 5 preguntas.\n  2. **Una vez que tengas las 5 respuestas, tu acción final DEBE ser usar la herramienta `Tool-Calificar Respuesta`**. Para ello, debes extraer de tu memoria de la conversación cada una de las 5 respuestas y el contactIdGHL del usuario que te entregó el sistema.\n* 3: CIERRE (Después de la Calificación)**\n  1. Inmediatamente después de llamar a la herramienta `Tool-Calificar Respuesta`, tu siguiente mensaje DEBE ser preguntar por el método de contacto. Ejemplo: \"¿Qué prefieres para que te contacte el asesor: WhatsApp, llamada o correo? También podemos agendar una reunión online.\"\n  2. Cuando el usuario responda a esa pregunta, tu ÚNICA acción debe ser invocar la herramienta `tool-guardar_preferencia_contacto`.\n  3. **IMPORTANTE:** Debes analizar su respuesta y pasar en el parámetro `preferencia` solo una de estas cuatro claves: `wsp` para WhatsApp, `call` para llamada, `correo` para email, o `meet` para agendar reunión.\n  4. Después de llamar a la herramienta `guardar_preferencia_contacto`, genera un mensaje final de agradecimiento. Ejemplo: \"¡Listo! Un asesor te contactará por ese medio muy pronto. ¡Muchas gracias por tu tiempo, que tengas un buen día!👋\"\n\n# REGLA CRÍTICA - MANEJO DE MENSAJES MÚLTIPLES:\n-Escribe de manera natural y humanizada, ni integrres - en tus respuestas para que suene mas fluido y natural\n- NUNCA respondas a mensajes que parezcan incompletos o fragmentados.\n- Si el mensaje contiene solo 1-2 palabras, ESPERA por contexto adicional.\n- Solo responde cuando tengas una oración o idea completa.\n- Considera los mensajes recientes como parte de una sola respuesta.\n\n# ESTILO CONVERSACIONAL Y REGLAS DE ENCUESTA\n... (Aquí puedes pegar el resto de tus instrucciones originales sobre el tono, las 5 preguntas, cómo manejar las FAQs, etc.)"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1069,
+                                    "y": -252,
+                                    "messages": [
+                                        {
+                                            "category": "reference",
+                                            "severity": "error",
+                                            "message": "Module references non-existing module '2'."
+                                        }
+                                    ]
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "agent": {
+                                            "label": "Magiabot Parcelas Elqui"
+                                        },
+                                        "messages": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "outputType": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "name": "agent",
+                                        "type": "aiagent",
+                                        "label": "Agent",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "threadID",
+                                        "type": "text",
+                                        "label": "Thread ID"
+                                    },
+                                    {
+                                        "name": "additionalSystemPrompt",
+                                        "type": "text",
+                                        "label": "Additional system instructions"
+                                    },
+                                    {
+                                        "name": "messages",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Message"
+                                        },
+                                        "type": "array",
+                                        "label": "Messages"
+                                    },
+                                    {
+                                        "name": "timeout",
+                                        "type": "number",
+                                        "label": "Timeout",
+                                        "validate": {
+                                            "max": 600,
+                                            "min": 120
+                                        }
+                                    },
+                                    {
+                                        "name": "outputType",
+                                        "type": "select",
+                                        "label": "Output schema",
+                                        "validate": {
+                                            "enum": [
+                                                "text",
+                                                "make-schema"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "advanced": true
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "module": "builtin:BasicRouter",
+                            "version": 1,
+                            "mapper": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1466,
+                                    "y": -256
+                                }
+                            },
+                            "routes": [
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 15,
+                                            "module": "telegram:SendReplyMessage",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 5424742
+                                            },
+                                            "mapper": {
+                                                "text": "{{13.response}}",
+                                                "chatId": "{{2.message.chat.id}}",
+                                                "parseMode": "",
+                                                "replyMarkup": "",
+                                                "messageThreadId": "",
+                                                "replyToMessageId": "",
+                                                "replyMarkupAssembleType": "reply_markup_enter"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1766,
+                                                    "y": -556,
+                                                    "messages": [
+                                                        {
+                                                            "category": "reference",
+                                                            "severity": "error",
+                                                            "message": "Module references non-existing module '2'."
+                                                        }
+                                                    ]
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "parseMode": {
+                                                            "label": "Empty"
+                                                        },
+                                                        "disableNotification": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "replyMarkupAssembleType": {
+                                                            "label": "Enter the Reply Markup"
+                                                        }
+                                                    },
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "telegram"
+                                                            },
+                                                            "label": "Magniabot"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:telegram",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "chatId",
+                                                        "type": "text",
+                                                        "label": "Chat ID",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "messageThreadId",
+                                                        "type": "number",
+                                                        "label": "Message Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "parseMode",
+                                                        "type": "select",
+                                                        "label": "Parse Mode",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "Markdown",
+                                                                "HTML"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "disableNotification",
+                                                        "type": "boolean",
+                                                        "label": "Disable Notifications"
+                                                    },
+                                                    {
+                                                        "name": "disableWebPagePreview",
+                                                        "type": "boolean",
+                                                        "label": "Disable Link Previews"
+                                                    },
+                                                    {
+                                                        "name": "replyToMessageId",
+                                                        "type": "number",
+                                                        "label": "Original Message ID"
+                                                    },
+                                                    {
+                                                        "name": "replyMarkupAssembleType",
+                                                        "type": "select",
+                                                        "label": "Enter/Assemble the Reply Markup Field",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "reply_markup_enter",
+                                                                "reply_markup_assemble"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "replyMarkup",
+                                                        "type": "text",
+                                                        "label": "Reply Markup"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 16,
+                                            "module": "http:ActionSendData",
+                                            "version": 3,
+                                            "parameters": {
+                                                "handleErrors": true,
+                                                "useNewZLibDeCompress": true
+                                            },
+                                            "filter": {
+                                                "name": "Enviar resumen encuesta",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{13.executionSteps[].toolCalls[].name}}",
+                                                            "b": "Tool-Calificar Respuesta",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "ca": "",
+                                                "qs": [],
+                                                "url": "https://hook.us2.make.com/7n063gb93gmdw5g2mdu4prqey9ac4gd9",
+                                                "data": "{{13.executionSteps[].toolCalls[].arguments}}",
+                                                "gzip": true,
+                                                "method": "post",
+                                                "headers": [
+                                                    {
+                                                        "name": "Content.Type",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "timeout": "",
+                                                "useMtls": false,
+                                                "authPass": "",
+                                                "authUser": "",
+                                                "bodyType": "raw",
+                                                "contentType": "application/json",
+                                                "serializeUrl": false,
+                                                "shareCookies": false,
+                                                "parseResponse": true,
+                                                "followRedirect": true,
+                                                "useQuerystring": false,
+                                                "followAllRedirects": false,
+                                                "rejectUnauthorized": true
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1973,
+                                                    "y": -252
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "qs": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "method": {
+                                                            "mode": "chose",
+                                                            "label": "POST"
+                                                        },
+                                                        "headers": {
+                                                            "mode": "chose",
+                                                            "items": [
+                                                                null
+                                                            ]
+                                                        },
+                                                        "bodyType": {
+                                                            "label": "Raw"
+                                                        },
+                                                        "contentType": {
+                                                            "label": "JSON (application/json)"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "handleErrors",
+                                                        "type": "boolean",
+                                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useNewZLibDeCompress",
+                                                        "type": "hidden"
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "url",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "serializeUrl",
+                                                        "type": "boolean",
+                                                        "label": "Serialize URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "method",
+                                                        "type": "select",
+                                                        "label": "Method",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "get",
+                                                                "head",
+                                                                "post",
+                                                                "put",
+                                                                "patch",
+                                                                "delete",
+                                                                "options"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "headers",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Headers"
+                                                    },
+                                                    {
+                                                        "name": "qs",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Query String"
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "raw",
+                                                                "x_www_form_urlencoded",
+                                                                "multipart_form_data"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "parseResponse",
+                                                        "type": "boolean",
+                                                        "label": "Parse response",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "authUser",
+                                                        "type": "text",
+                                                        "label": "User name"
+                                                    },
+                                                    {
+                                                        "name": "authPass",
+                                                        "type": "password",
+                                                        "label": "Password"
+                                                    },
+                                                    {
+                                                        "name": "timeout",
+                                                        "type": "uinteger",
+                                                        "label": "Timeout",
+                                                        "validate": {
+                                                            "max": 300,
+                                                            "min": 1
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "shareCookies",
+                                                        "type": "boolean",
+                                                        "label": "Share cookies with other HTTP modules",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "ca",
+                                                        "type": "cert",
+                                                        "label": "Self-signed certificate"
+                                                    },
+                                                    {
+                                                        "name": "rejectUnauthorized",
+                                                        "type": "boolean",
+                                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "followRedirect",
+                                                        "type": "boolean",
+                                                        "label": "Follow redirect",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useQuerystring",
+                                                        "type": "boolean",
+                                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "gzip",
+                                                        "type": "boolean",
+                                                        "label": "Request compressed content",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useMtls",
+                                                        "type": "boolean",
+                                                        "label": "Use Mutual TLS",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "contentType",
+                                                        "type": "select",
+                                                        "label": "Content type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "text/plain",
+                                                                "application/json",
+                                                                "application/xml",
+                                                                "text/xml",
+                                                                "text/html",
+                                                                "custom"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "data",
+                                                        "type": "buffer",
+                                                        "label": "Request content"
+                                                    },
+                                                    {
+                                                        "name": "followAllRedirects",
+                                                        "type": "boolean",
+                                                        "label": "Follow all redirect",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 17,
+                                            "module": "telegram:SendReplyMessage",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 5424742
+                                            },
+                                            "mapper": {
+                                                "text": "{{13.response}}",
+                                                "chatId": "{{2.message.chat.id}}",
+                                                "parseMode": "",
+                                                "replyMarkup": "",
+                                                "messageThreadId": "",
+                                                "replyToMessageId": "",
+                                                "replyMarkupAssembleType": "reply_markup_enter"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 2326,
+                                                    "y": -277,
+                                                    "messages": [
+                                                        {
+                                                            "category": "reference",
+                                                            "severity": "error",
+                                                            "message": "Module references non-existing module '2'."
+                                                        }
+                                                    ]
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "parseMode": {
+                                                            "label": "Empty"
+                                                        },
+                                                        "disableNotification": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "replyMarkupAssembleType": {
+                                                            "label": "Enter the Reply Markup"
+                                                        }
+                                                    },
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "telegram"
+                                                            },
+                                                            "label": "Magniabot"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:telegram",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "chatId",
+                                                        "type": "text",
+                                                        "label": "Chat ID",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "messageThreadId",
+                                                        "type": "number",
+                                                        "label": "Message Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "parseMode",
+                                                        "type": "select",
+                                                        "label": "Parse Mode",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "Markdown",
+                                                                "HTML"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "disableNotification",
+                                                        "type": "boolean",
+                                                        "label": "Disable Notifications"
+                                                    },
+                                                    {
+                                                        "name": "disableWebPagePreview",
+                                                        "type": "boolean",
+                                                        "label": "Disable Link Previews"
+                                                    },
+                                                    {
+                                                        "name": "replyToMessageId",
+                                                        "type": "number",
+                                                        "label": "Original Message ID"
+                                                    },
+                                                    {
+                                                        "name": "replyMarkupAssembleType",
+                                                        "type": "select",
+                                                        "label": "Enter/Assemble the Reply Markup Field",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "reply_markup_enter",
+                                                                "reply_markup_assemble"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "replyMarkup",
+                                                        "type": "text",
+                                                        "label": "Reply Markup"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 21,
+                                            "module": "http:ActionSendData",
+                                            "version": 3,
+                                            "parameters": {
+                                                "handleErrors": true,
+                                                "useNewZLibDeCompress": true
+                                            },
+                                            "filter": {
+                                                "name": "ENVIAR DATOS A TOOLS DE PREFERENCIA ",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{13.executionSteps[].toolCalls[].name}}",
+                                                            "b": "Tool-guardar_preferencia_contacto",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "url": "https://hook.us2.make.com/3pt8r2i0skz2b7e714wi531yp1knxbds",
+                                                "serializeUrl": false,
+                                                "method": "post",
+                                                "headers": [],
+                                                "qs": [],
+                                                "bodyType": "raw",
+                                                "parseResponse": false,
+                                                "authUser": "",
+                                                "authPass": "",
+                                                "timeout": "",
+                                                "shareCookies": false,
+                                                "ca": "",
+                                                "rejectUnauthorized": true,
+                                                "followRedirect": true,
+                                                "useQuerystring": false,
+                                                "gzip": true,
+                                                "useMtls": false,
+                                                "contentType": "application/json",
+                                                "data": "{{13.executionSteps[].toolCalls[].arguments}}",
+                                                "followAllRedirects": false
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1723,
+                                                    "y": 77
+                                                },
+                                                "restore": {
+                                                    "expect": {
+                                                        "method": {
+                                                            "mode": "chose",
+                                                            "label": "POST"
+                                                        },
+                                                        "headers": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "qs": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "bodyType": {
+                                                            "label": "Raw"
+                                                        },
+                                                        "contentType": {
+                                                            "label": "JSON (application/json)"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "handleErrors",
+                                                        "type": "boolean",
+                                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useNewZLibDeCompress",
+                                                        "type": "hidden"
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "url",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "serializeUrl",
+                                                        "type": "boolean",
+                                                        "label": "Serialize URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "method",
+                                                        "type": "select",
+                                                        "label": "Method",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "get",
+                                                                "head",
+                                                                "post",
+                                                                "put",
+                                                                "patch",
+                                                                "delete",
+                                                                "options"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "headers",
+                                                        "type": "array",
+                                                        "label": "Headers",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "label": "Name",
+                                                                "type": "text",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "label": "Value",
+                                                                "type": "text"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "name": "qs",
+                                                        "type": "array",
+                                                        "label": "Query String",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "label": "Name",
+                                                                "type": "text",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "label": "Value",
+                                                                "type": "text"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "raw",
+                                                                "x_www_form_urlencoded",
+                                                                "multipart_form_data"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "parseResponse",
+                                                        "type": "boolean",
+                                                        "label": "Parse response",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "authUser",
+                                                        "type": "text",
+                                                        "label": "User name"
+                                                    },
+                                                    {
+                                                        "name": "authPass",
+                                                        "type": "password",
+                                                        "label": "Password"
+                                                    },
+                                                    {
+                                                        "name": "timeout",
+                                                        "type": "uinteger",
+                                                        "label": "Timeout",
+                                                        "validate": {
+                                                            "max": 300,
+                                                            "min": 1
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "shareCookies",
+                                                        "type": "boolean",
+                                                        "label": "Share cookies with other HTTP modules",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "ca",
+                                                        "type": "cert",
+                                                        "label": "Self-signed certificate"
+                                                    },
+                                                    {
+                                                        "name": "rejectUnauthorized",
+                                                        "type": "boolean",
+                                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "followRedirect",
+                                                        "type": "boolean",
+                                                        "label": "Follow redirect",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useQuerystring",
+                                                        "type": "boolean",
+                                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "gzip",
+                                                        "type": "boolean",
+                                                        "label": "Request compressed content",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useMtls",
+                                                        "type": "boolean",
+                                                        "label": "Use Mutual TLS",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "contentType",
+                                                        "type": "select",
+                                                        "label": "Content type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "text/plain",
+                                                                "application/json",
+                                                                "application/xml",
+                                                                "text/xml",
+                                                                "text/html",
+                                                                "custom"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "data",
+                                                        "type": "buffer",
+                                                        "label": "Request content"
+                                                    },
+                                                    {
+                                                        "name": "followAllRedirects",
+                                                        "type": "boolean",
+                                                        "label": "Follow all redirect",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 22,
+                                            "module": "telegram:SendReplyMessage",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 5424742
+                                            },
+                                            "mapper": {
+                                                "chatId": "{{11.data.telegramChatId}}",
+                                                "text": "{{13.response}}",
+                                                "messageThreadId": "",
+                                                "parseMode": "",
+                                                "replyToMessageId": "",
+                                                "replyMarkupAssembleType": "reply_markup_enter",
+                                                "replyMarkup": ""
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 2023,
+                                                    "y": 77
+                                                },
+                                                "restore": {
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "label": "Magniabot",
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "telegram"
+                                                            }
+                                                        }
+                                                    },
+                                                    "expect": {
+                                                        "parseMode": {
+                                                            "label": "Empty"
+                                                        },
+                                                        "disableNotification": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "replyMarkupAssembleType": {
+                                                            "label": "Enter the Reply Markup"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:telegram",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "chatId",
+                                                        "type": "text",
+                                                        "label": "Chat ID",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "messageThreadId",
+                                                        "type": "number",
+                                                        "label": "Message Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "parseMode",
+                                                        "type": "select",
+                                                        "label": "Parse Mode",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "Markdown",
+                                                                "HTML"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "disableNotification",
+                                                        "type": "boolean",
+                                                        "label": "Disable Notifications"
+                                                    },
+                                                    {
+                                                        "name": "disableWebPagePreview",
+                                                        "type": "boolean",
+                                                        "label": "Disable Link Previews"
+                                                    },
+                                                    {
+                                                        "name": "replyToMessageId",
+                                                        "type": "number",
+                                                        "label": "Original Message ID"
+                                                    },
+                                                    {
+                                                        "name": "replyMarkupAssembleType",
+                                                        "type": "select",
+                                                        "label": "Enter/Assemble the Reply Markup Field",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "reply_markup_enter",
+                                                                "reply_markup_assemble"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "replyMarkup",
+                                                        "type": "text",
+                                                        "label": "Reply Markup"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
